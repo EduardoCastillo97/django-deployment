@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var pathname = window.location.pathname;
+        $('.nav > li > a[href="'+pathname+'"]').parent().addClass('active');
+      });
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <div class="navbar-header">
+            <a title="index" class="navbar-brand" href="{% url 'index' %}">Django</a>
+          </div>
+          <li><a title="admin" href="{% url 'admin:index' %}">Admin</a></li>
+          <li><a title="register" href="{% url 'basic_app:register' %}">Register</a></li>
+          {% if user.is_authenticated %}
+            <li><a title="user_logout" href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+            <li><a title="user_login" href="{% url 'basic_app:user_login' %}">Login</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      {% block body_block %}
+      {% endblock %}
+    </div>
+  </body>
+</html>
